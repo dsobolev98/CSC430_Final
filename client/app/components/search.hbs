@@ -1,0 +1,67 @@
+<main class="container">
+    <form class="p-5">
+        <div class="row">
+            <div class="col-sm p-2">
+                <label class="form-label" for="semester">Semester:</label>
+                <select class="form-select" id="semester" onchange={{action "changeSemester" value="target.value"}}>
+                    <option disabled selected>Choose Semester</option>
+                    <option value="Fall20">Fall 2020</option>
+                    <option value="Spring21">Spring 2021</option>
+                    <option value="Sum21">Summer 2021</option>
+                </select>
+            </div>
+            <div class="col-sm p-2">
+                <label class="form-label" for="schoolName">School:</label>
+                <select class="form-select" id='schoolName' onchange={{action "viewClasses" value="target.value"}}>
+                    <option disabled selected>Choose School</option>
+                    {{#each schoolsEnrolled as |school|}}
+                        <option value={{school}}>{{school}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-sm p-2">
+                <label class="form-label" for="subjectName">Subject:</label>
+                <select class="form-select" id="subjectName" onchange={{action "viewNumbers" value="target.value"}}>
+                    <option disabled selected>Choose Subject</option>
+                    {{#each this.subjects as |subject|}}
+                        <option value={{subject}}>{{subject}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-sm p-2">
+                <label class="form-label" for="subjectNum">Number:</label>
+                <select class="form-select" id="subjectNum" onchange={{action "changeCourseNumber" value="target.value"}}>
+                    <option disabled selected>Choose Number</option>
+                    {{#each this.courseNumbers as |num|}}
+                        <option value={{num}}>{{num}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        {{!-- <div class="row">
+            <div class='col pd-2'>
+                <input class="form-check-input" type="checkbox" value="" id="openClassesCheck" checked>
+                <label class="form-check-label" for="openClassesCheck">
+                    ONLY Show Open Classes
+                </label>
+            </div>
+            <div class='col pd-2'>
+                <input class="form-check-input" type="checkbox" value="" id="exactClassesCheck" checked>
+                <label class="form-check-label" for="exactClassesCheck">
+                    ONLY Show Classes By Exact Number
+                </label>
+            </div>
+            <div class='col pd-2'>
+                <input class="form-check-input" type="checkbox" value="" id="greaterClassesCheck">
+                <label class="form-check-label" for="greaterClassesCheck">
+                    ONLY Show Classes Greater Than Number
+                </label>
+            </div>
+        </div> --}}
+        <div class="pt-5 d-flex justify-content-end">
+            <button type="button" class="btn btn-success" onclick={{action submit}}>Submit</button>
+        </div>
+    </form>
+</main>

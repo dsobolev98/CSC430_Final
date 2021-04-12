@@ -1,0 +1,14 @@
+<main>
+    <p>{{this.message}}</p>
+    <form class="p-5">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" value={{userName}} onchange={{action getUsername}} aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" value={{userPass}} onchange={{action getUserpass}}>
+        </div>
+        <button type="button" class="btn btn-primary" {{on "click" checkInfo}}>Submit</button>
+    </form>
+</main>

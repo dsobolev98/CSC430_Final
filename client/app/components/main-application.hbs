@@ -1,0 +1,41 @@
+{{yield}}
+
+<NavBar 
+    @changePage={{this.navigateTo}}
+    @cookie={{this.cookie}}
+    @changeCookie={{this.changeCookie}}
+/>
+
+{{#if this.cookie}}
+    {{#if isMainPage}}
+        <Schedule @cookie={{this.cookie}}/>
+    {{/if}}
+    {{#if isCartPage}}
+        <Cart
+            @cookie={{this.cookie}}
+        />
+    {{/if}}
+    {{#if isSearchPage}}
+        <Search 
+            @cookie={{this.cookie}}
+            @handler={{this.searchHandler}}
+            @changePage={{this.navigateTo}}
+        />
+    {{/if}}
+    {{#if isCoursePage}}
+        <CourseView
+            @sem={{this.selectedSemester}}
+            @school={{this.selectedSchool}}
+            @name={{this.selectedCourseName}}
+            @num={{this.selectedCourseNumber}}
+            @changePage={{this.navigateTo}}
+
+        />
+    {{/if}}
+{{else}}
+    <LoginIn 
+        @cookie={{this.changeCookie}}
+        @changePage={{this.navigateTo}}
+    />
+{{/if}}
+

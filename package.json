@@ -1,0 +1,22 @@
+{
+  "name": "csc430_midterm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "start": "concurrently --kill-others \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "mongodb": "^3.6.2"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11"
+  }
+}
