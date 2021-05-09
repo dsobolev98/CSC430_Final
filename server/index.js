@@ -52,9 +52,9 @@ mongo.connect(url, {
     studentcollection.insertOne({ID:'9811', name:'Mary May', address:'45 side st', telephone:'7185556644', isLoggedIn: 'false', cookie: '1000111', username:'mary811@gmail.com', password:'password', schoolID:['111']});
     instructorcollection.insertOne({ID:'3456', name:'John Doe', address:'98 some st', telephone:'9875556767'});
 
-    enrolledcollection.insertOne({courseID:'1014', studentID:'9811'});
-    enrolledcollection.insertOne({courseID:'1019', studentID:'9811'});
-    enrolledcollection.insertOne({courseID:'1023', studentID:'9811'});
+    enrolledcollection.insertOne({courseID:'1014', studentID:'9811', status:'Enrolled'});
+    enrolledcollection.insertOne({courseID:'1019', studentID:'9811', status:'Enrolled'});
+    enrolledcollection.insertOne({courseID:'1023', studentID:'9811', status:'Enrolled'});
 
 
     app.get('/testing', function(req, res) {

@@ -9,6 +9,7 @@ export default class CourseViewComponent extends Component {
     @tracked school = null;
     @tracked name = null;
     @tracked num = null;
+    @tracked checked = false;
 
     @tracked courses = [];
 
@@ -28,7 +29,7 @@ export default class CourseViewComponent extends Component {
     }
 
     @action submit(id, name, number, time, sem){
-        let object = {ID:id, Name:name, Number:number, Time:time};
+        let object = {ID:id, Name:name, Number:number, Time:time, Waitlist:this.checked};
         let cart = JSON.parse(localStorage.getItem('cart'))
         if(cart){
             cart.push(object);
@@ -39,5 +40,16 @@ export default class CourseViewComponent extends Component {
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         this.args.changePage('search')
+    }
+
+    @action waitList(checked){
+        if(checked){
+            console.log('checked')
+            this.checked = true;
+        }
+        else{
+            console.log('unchecked')
+            this.checked = false;
+        }
     }
 }

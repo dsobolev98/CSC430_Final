@@ -6,6 +6,9 @@
         {{#if this.failMessg}}
             <p class="text-danger">Did Not Update</p>
         {{/if}}
+        {{#if this.classFull}}
+            <p class="text-warning">Class Is Full, Check Waitlist</p>
+        {{/if}}
         <table class="table table-dark">
             <thead>
                 <tr class="table-active">

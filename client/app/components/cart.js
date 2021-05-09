@@ -8,6 +8,8 @@ export default class CartComponent extends Component {
     @tracked coursesInCart = [];
     @tracked successMessg = null;
     @tracked failMessg = null;
+    @tracked countCourses = null;
+    @tracked classFull = null;
 
     constructor(){
         super(...arguments);
@@ -36,6 +38,7 @@ export default class CartComponent extends Component {
     }
 
     @action add(id){
+        //get the shopping cart stored in local storage and find the specific class the user clicked on
         let index = -1;
         for(let x in this.coursesInCart){
             if(this.coursesInCart[x].ID == id)
@@ -44,16 +47,39 @@ export default class CartComponent extends Component {
         let object = this.coursesInCart[index];
         object.cookie = this.args.cookie
         console.log(object)
+        
+        //we can check if the user alrady has this course in his schedule by adding a new get method. and having the below code within the function
+        //find if there is enough seats in the course
+        $.get(`${ENV.APP.API_ENDPOINT}/cart/explainWaitList`, (object), (result)=>{
+            if(result <= 0 && object.Waitlist == true){                    //the class is full, only able to be put on waitlist
+                object.status = 'Waitlist'
+                this.addDB(object, id)
 
+            }
+            else if (result > 0){                                           //the class has seats available
+                object.status = 'Enrolled'
+                this.addDB(object, id)
+            }
+            else{
+                this.successMessg = null;
+                this.failMessg = null;
+                this.classFull = true;
+            }
+        })
+    }
+
+    addDB(object, id){
         $.get(`${ENV.APP.API_ENDPOINT}/cart/set`,(object), (result)=>{
             if(result){
                 this.delete(id)
                 this.successMessg = true;
                 this.failMessg = null;
+                this.classFull = null;
             }
             else{
                 this.successMessg = null;
                 this.failMessg = true;
+                this.classFull = null;
             }
         });
     }

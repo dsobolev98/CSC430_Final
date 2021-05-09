@@ -13,7 +13,7 @@
             <p class="pt-3">Description: {{course.Description}}</p>
             <p>Time: {{course.Time}}</p>
             <form class="pt-3">
-                <input class="form-check-input" type="checkbox" value="" id="waitList">
+                <input class="form-check-input" type="checkbox" value="" id="waitList" onclick={{action "waitList" value="target.checked"}}>
                 <label class="form-check-label" for="waitList">
                     Waitlist
                 </label>
