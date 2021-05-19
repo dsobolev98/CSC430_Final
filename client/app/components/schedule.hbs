@@ -1,4 +1,12 @@
 <main class="container p-5">
+    <div class="d-inline-flex p-2">
+        <select class="form-select" id="semester" onchange={{action "changeSemester" value="target.value"}}>
+            <option disabled selected>Choose Semester</option>
+            <option value="Fall20">Fall 2020</option>
+            <option value="Spring21">Spring 2021</option>
+            <option value="Summer21">Summer 2021</option>
+        </select>
+    </div>
     <table class="table table-dark">
         <thead>
             <tr class="table-active">
@@ -6,17 +14,31 @@
                 <th scope='col'>Couse</th>
                 <th scope='col'>Time</th>
                 <th scope='col'>Status</th>
+                <th scope='col'></th>
             </tr>
         </thead>
         <tbody>
+        {{#if this.coursesEnrolled}}
             {{#each this.coursesEnrolled as |course|}}
                 <tr>
                     <td>{{course.ID}}</td>
                     <td>{{course.Name}}{{course.Number}}</td>
                     <td>{{course.Time}}</td>
                     <td>{{course.Status}}</td>
+                    <td><button type="button" class="btn btn-danger" onclick={{action "drop" course.ID}}>Drop</button></td>
                 </tr>
             {{/each}}
+        {{else}}
+            <tr>
+                <td>
+                    <p>You have no courses or this semester!</p>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {{/if}}
         </tbody>
     </table>
 </main>

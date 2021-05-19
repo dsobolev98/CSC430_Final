@@ -10,6 +10,7 @@ export default class CourseViewComponent extends Component {
     @tracked name = null;
     @tracked num = null;
     @tracked checked = false;
+    @tracked emailProfessor = false;
 
     @tracked courses = [];
 
@@ -23,13 +24,13 @@ export default class CourseViewComponent extends Component {
     }
 
     getCourses(){
-        $.get(`${ENV.APP.API_ENDPOINT}/search/find`,({school:this.school, name:this.name, num:this.num}), (result)=>{
+        $.get(`${ENV.APP.API_ENDPOINT}/search/find`,({school:this.school, name:this.name, num:this.num, semester:this.sem}), (result)=>{
             this.courses = result;
         });
     }
 
     @action submit(id, name, number, time, sem){
-        let object = {ID:id, Name:name, Number:number, Time:time, Waitlist:this.checked};
+        let object = {ID:id, Name:name, Number:number, Time:time, Waitlist:this.checked, semester:sem};
         let cart = JSON.parse(localStorage.getItem('cart'))
         if(cart){
             cart.push(object);
@@ -51,5 +52,13 @@ export default class CourseViewComponent extends Component {
             console.log('unchecked')
             this.checked = false;
         }
+    }
+
+    @action onSuccess(){
+        alert('Success: Email has been copied!')
+    }
+
+    @action onError(){
+        alert('Error: Try Again!')
     }
 }

@@ -12,6 +12,11 @@ export default class MainApplicationComponent extends Component {
     @tracked selectedSemester = null;
     @tracked selectedCourseNumber = null;
 
+    constructor(){
+        super(...arguments);
+        this.getCookieFromLocal();
+    }
+
     get isMainPage(){
         return this.activePage === 'main'
     }
@@ -38,10 +43,22 @@ export default class MainApplicationComponent extends Component {
         this.cookie=num;
     }
 
-    @action searchHandler(sem, school, name, num){
+    @action 
+    searchHandler(sem, school, name, num){
         this.selectedSchool = school;
         this.selectedCourseName = name;
         this.selectedSemester = sem;
         this.selectedCourseNumber = num;
+    }
+
+    getCookieFromLocal(){
+        var tempLocal = localStorage.getItem('cookie');
+        if(tempLocal === null){
+            this.cookie = null;
+        }
+        else{
+            this.cookie = tempLocal;
+            this.activePage = 'main'
+        }
     }
 }

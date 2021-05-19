@@ -1,25 +1,41 @@
 <main class="container pt-5 px-5">
-    {{#each this.courses as |course|}}
-    <div class="row pt-5">
-        <div class="col">
-            <p class="h1">
-            {{course.Name}} {{course.Number}}
-            </p>
-            <p>ID: {{course.ID}}</p>
-            <p>Instructor: {{course.Instructor}}</p>
-            <p>Total Enrollement: {{course.Total_Enrollement}}</p>
+    {{#if this.courses}}
+        {{#each this.courses as |course|}}
+        <div class="row pt-5">
+            <div class="col">
+                <p class="h1">
+                {{course.Name}} {{course.Number}}
+                </p>
+                <p>ID: {{course.ID}}</p>
+                <p>Instructor: {{course.Instructor}}</p>
+                <p>Total Enrollement: {{course.Total_Enrollement}}</p>
+                <p id="email{{course.ID}}" hidden>{{course.email}}</p>
+                <CopyButton
+                    @clipboardTarget="#email{{course.ID}}"
+                    @success={{this.onSuccess}}
+                    @error={{this.onError}}
+                    title="copy to clipboard"
+                    class="btn btn-primary"
+                >
+                    Copy Email
+                </CopyButton>
+            </div>
+            <div class="col">
+                <p class="pt-3">Description: {{course.Description}}</p>
+                <p>Time: {{course.Time}}</p>
+                <form class="pt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="waitList" onclick={{action "waitList" value="target.checked"}}>
+                    <label class="form-check-label" for="waitList">
+                        Waitlist
+                    </label>
+                    <br><br>
+                    <button type="button" class="btn btn-success" onclick={{action "submit" course.ID course.Name course.Number course.Time course.semester}}>Add Course To Shopping Cart</button>
+                </form>
+            </div>
         </div>
-        <div class="col">
-            <p class="pt-3">Description: {{course.Description}}</p>
-            <p>Time: {{course.Time}}</p>
-            <form class="pt-3">
-                <input class="form-check-input" type="checkbox" value="" id="waitList" onclick={{action "waitList" value="target.checked"}}>
-                <label class="form-check-label" for="waitList">
-                    Waitlist
-                </label>
-                <button type="button" class="btn btn-success" onclick={{action "submit" course.ID course.Name course.Number course.Time}}>Add Course To Shopping Cart</button>
-            </form>
-        </div>
-    </div>
-    {{/each}}
+        <hr>
+        {{/each}}
+    {{else}}
+        <p>There are no classes that match your result</p>
+    {{/if}}
 </main>

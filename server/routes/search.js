@@ -37,9 +37,11 @@ app.get('/find', function(req, res) {
     const school = req.query.school;
     const name = req.query.name;
     const number = req.query.num;
+    const semester = req.query.semester;
+
     db = req.app.get('locals.client').db('CSC430');
 
-    db.collection('course').find({Name:name, Number:number, schoolID:school}).toArray((err, courses)=>{
+    db.collection('course').find({Name:name, Number:number, schoolID:school, semester:semester}).toArray((err, courses)=>{
         res.json(courses)
     });
 });

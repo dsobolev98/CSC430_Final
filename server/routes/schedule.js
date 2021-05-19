@@ -7,13 +7,13 @@ app.get('/', function(req, res){
 
 app.get('/courses', function(req, res){
     const cookie = req.query.cookie;
+    const semester = req.query.semester;
 
     db = req.app.get('locals.client').db('CSC430');
 
     db.collection('student').findOne({cookie:cookie}, (err, person) => {
-        db.collection('enrolled').find({studentID:person.ID}).toArray((err, coursesEnrolled) => {
+        db.collection('enrolled').find({studentID:person.ID, semester:semester}).toArray((err, coursesEnrolled) => {
             let arr = [];
-            let courseInfo = [];
             coursesEnrolled.forEach(function(course){
                 arr.push(course.courseID)
             });
@@ -38,5 +38,18 @@ app.get('/info', function(req, res){
         res.json(course)
     })
 })
+
+app.get('/drop', function(req, res){
+    const courseID = req.query.courseID;
+    const cookie = req.query.cookie;
+    const semester = req.query.semester;
+
+    db = req.app.get('locals.client').db('CSC430');
+
+    db.collection('student').findOne({cookie:cookie}, (err, student) => {
+        db.collection('enrolled').deleteOne({courseID: courseID, studentID: student.ID, semester: semester});
+    })
+});
+
 
 module.exports = app;

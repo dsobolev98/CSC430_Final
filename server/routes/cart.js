@@ -9,10 +9,12 @@ app.get('/set', function(req, res) {
     const cookie = req.query.cookie;
     const courseid = req.query.ID;
     const status = req.query.status;
+    const semester = req.query.semester;
+    
     db = req.app.get('locals.client').db('CSC430');
 
     db.collection('student').findOne({cookie:cookie}, (err, student)=>{
-        db.collection('enrolled').insertOne({courseID:courseid, studentID:student.ID, status:status}, (err, success)=>{
+        db.collection('enrolled').insertOne({courseID:courseid, studentID:student.ID, status:status, semester:semester}, (err, success)=>{
             res.json(success)
         });
     });
